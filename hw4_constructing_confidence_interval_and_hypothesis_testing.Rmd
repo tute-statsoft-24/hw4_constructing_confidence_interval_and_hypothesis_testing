@@ -1,0 +1,151 @@
+---
+title: "统计软件课程设计 - 作业4：构造置信区间和假设检验"
+author: "学生姓名"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    code_folding: show
+    df_print: paged
+---
+
+<style>
+body { font-size: 18px; }
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+### 任务说明
+本作业要求你编写两个 R 函数：
+
+- 计算正态总体均值的置信区间（方差已知或未知）
+
+- 对正态总体均值进行假设检验（方差已知或未知）
+
+并通过模拟实验评估方法的实际表现。
+
+<br>
+
+### 步骤 1：置信区间函数
+请完成以下函数 CI_normal，它应能处理两种情况：
+
+- 若 sigma >= 0，表示总体标准差已知，使用 Z 分布
+
+- 否则，使用样本标准差和 t 分布
+
+```{r confidence interval}
+# TODO: 完成置信区间函数
+CI_normal <- function(x, sigma = -1, alpha = 0.05) {
+  n <- length(x)
+  mu <- mean(x)
+  
+  # TODO: 根据 sigma 是否已知，计算 margin of error (tmp)
+  if (sigma >= 0) {
+    # 已知 sigma，使用 qnorm
+    tmp <- NULL
+  } else {
+    # 未知 sigma，使用 qt
+    tmp <- NULL
+  }
+  
+  c(mu - tmp, mu + tmp)
+}
+```
+
+<br>
+
+### 步骤 2：假设检验函数
+请完成 HT_normal 函数，返回 p 值。支持三种备择假设：
+
+- "two sides"（默认）
+- "lower side"（左侧检验）
+- "upper side"（右侧检验）
+
+
+```{r hypothesis testing}
+# TODO: 完成假设检验函数
+HT_normal <- function(x, mu0, sigma = -1, alternative = "two sides") {
+  n <- length(x)
+  mu <- mean(x)
+  
+  # TODO: 计算检验统计量 STAT
+  if (sigma >= 0) {
+    STAT <- NULL
+  } else {
+    STAT <- NULL
+  }
+  
+  # TODO: 根据 alternative 计算 p 值
+  if (alternative == "two sides") {
+    p <- NULL
+  } else if (alternative == "lower side") {
+    p <- NULL
+  } else {  # upper side
+    p <- NULL
+  }
+  
+  p
+}
+```
+
+<br>
+
+### 步骤 3：模拟评估置信区间性能
+
+通过 1000 次重复实验，评估 HT_normal 的：
+
+- 覆盖率（Coverage Rate）：真实均值落在 CI 中的比例
+
+- 平均区间宽度
+
+真实分布：X ∼ N(0, 1)，样本量 n = 100
+
+```{r evaluation of confidence interval}
+set.seed(123)
+
+coverage <- 0
+ave_width <- 0
+
+for (R in 1:1000) {
+    NULL
+}
+
+coverage <- coverage / 1000
+ave_width <- ave_width / 1000
+
+cat("Coverage:", round(coverage, 3), "\n")
+cat("Average Width:", round(ave_width, 3), "\n")
+```
+
+<br>
+
+### 步骤 4：模拟评估假设检验的第I类错误率 / 功效
+通过 1000 次重复实验，评估 HT_normal 的第I类错误率和功效。使用双边检验，检验的显著水平取为alpha = 0.05。
+
+- 原假设H0：X ∼ N(0, 1)
+
+- 备择假设H1：X ∼ N(3, 1)
+
+- H0：X ∼ N(0, 1)
+
+- H1：X ∼ N(3, 1)
+
+- 样本量 n = 100
+
+```{r evaluation of hypothesis testing}
+set.seed(123)
+emp_alpha <- 0
+emp_power <- 0
+
+for (R in 1:1000) {
+    NULL
+}
+
+emp_alpha <- emp_alpha / 1000
+emp_power <- emp_power / 1000
+
+cat("Empirical Alpha:", round(emp_alpha, 3), "\n")
+cat("Empirical Power:", round(emp_power, 3), "\n")
+```
